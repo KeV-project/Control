@@ -12,17 +12,22 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ControlViewModel.WindowViewModels;
+using ControlView.Services;
 
-namespace Control
+namespace ControlView
 {
 	/// <summary>
 	/// Логика взаимодействия для MainWindow.xaml
 	/// </summary>
-	public partial class MainWindow : Window
+	public partial class ControlWindow : Window
 	{
-		public MainWindow()
+		public ControlWindow()
 		{
 			InitializeComponent();
+
+			DataContext = new ControlWindowViewModel(
+				new FileDialogService());
 		}
 	}
 }
