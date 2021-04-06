@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ControlViewModel.ModelViewModels
 {
-	public class ProjectViewModel
+	public class ProjectViewModel: ModelViewModelBase
 	{
 	}
 }
