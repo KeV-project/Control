@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlView", "Control\ControlView.csproj", "{362E261B-6BC5-4F61-BE3C-D8E8347E311C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlViewModel", "ControlViewModel\ControlViewModel.csproj", "{6D547CDA-1E4B-44AA-8DC4-26595F170A2A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlModel", "ControlViewModel\ControlModel.csproj", "{6D547CDA-1E4B-44AA-8DC4-26595F170A2A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
