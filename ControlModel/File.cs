@@ -19,10 +19,11 @@ namespace ControlModel
 			}
 			set
 			{
-
+				_filePath = value;
+				ValueValidator.AssertCorrectFile(_filePath);
 			}
 		}
 
-		public string FileName { get => _filePath.Name}
+		public string FileName { get => _filePath.Name; }
 	}
 }
