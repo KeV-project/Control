@@ -14,7 +14,7 @@ namespace ControlViewModel.WindowViewModels
     {
         private Project _project;
 
-        public ObservableCollection<string> Files { get; private set; }
+        public ObservableCollection<File> Files { get; private set; }
 
         private IFileDialogService _fileDialogService;
 
@@ -23,7 +23,7 @@ namespace ControlViewModel.WindowViewModels
         public ControlWindowViewModel(IFileDialogService fileDialogService)
 		{
             _project = new Project();
-            Files = new ObservableCollection<string>();
+            Files = new ObservableCollection<File>();
             _fileDialogService = fileDialogService;
 		}
 
@@ -51,8 +51,7 @@ namespace ControlViewModel.WindowViewModels
                  {
                      if(_fileDialogService.AddFileDialog())
 					 {
-                         _project.AddFile(_fileDialogService.FilePath);
-                         Files.Add(_fileDialogService.FilePath.Name);
+                         _project.AddFile(new File(_fileDialogService.FilePath));
 					 }
                  }));
             }

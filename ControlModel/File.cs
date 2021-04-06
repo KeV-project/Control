@@ -25,5 +25,10 @@ namespace ControlModel
 		}
 
 		public string FileName { get => _filePath.Name; }
+
+		public File(FileInfo filePath)
+		{
+			FilePath = filePath;
+		}
 	}
 }
