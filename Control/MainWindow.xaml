@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Control"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Control" Height="650" Width="420" ResizeMode="NoResize"
+        FontSize="14" WindowStartupLocation="CenterScreen">
     <Grid>
         
     </Grid>
