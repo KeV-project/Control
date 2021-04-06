@@ -43,6 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="ModelViewModels\ModelViewModelBase.cs" />
+    <Compile Include="ModelViewModels\ProjectViewModel.cs" />
     <Compile Include="WindowViewModels\ControlWindowViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IFileDialogService.cs" />
@@ -54,5 +56,6 @@
       <Name>ControlModel</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

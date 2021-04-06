@@ -57,5 +57,19 @@ namespace ControlViewModel.WindowViewModels
                  }));
             }
         }
+
+        private RelayCommand _removeFileCommand;
+
+        public RelayCommand RemoveCommand
+		{
+			get
+			{
+                return _removeFileCommand ??
+                 (_removeFileCommand = new RelayCommand(obj =>
+                 {
+                     
+                 }));
+            }
+		}
     }
 }
