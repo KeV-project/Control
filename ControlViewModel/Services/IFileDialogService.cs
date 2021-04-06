@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace ControlViewModel.Services
 {
 	public interface IFileDialogService
 	{
-		string FilePath { get; set; }
+		FileInfo FilePath { get; set; }
 
 		bool AddFileDialog();
 	}

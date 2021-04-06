@@ -48,6 +48,11 @@
     <Compile Include="Services\IFileDialogService.cs" />
     <Compile Include="ViewModelBase.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\ControlModel\ControlModel.csproj">
+      <Project>{115a32e2-8275-4167-89e3-55248f9d52e7}</Project>
+      <Name>ControlModel</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

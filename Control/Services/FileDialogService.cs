@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,14 +12,14 @@ namespace ControlView.Services
 {
 	public class FileDialogService: IFileDialogService
 	{
-		public string FilePath { get; set; }
+		public FileInfo FilePath { get; set; }
 
         public bool AddFileDialog()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             if (openFileDialog.ShowDialog() == true)
             {
-                FilePath = openFileDialog.FileName;
+                FilePath = new FileInfo(openFileDialog.FileName);
                 return true;
             }
             return false;
