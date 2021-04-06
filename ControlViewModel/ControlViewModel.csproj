@@ -45,6 +45,7 @@
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="ControlViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\IFileDialogService.cs" />
     <Compile Include="ViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup />
