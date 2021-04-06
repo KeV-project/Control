@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6D547CDA-1E4B-44AA-8DC4-26595F170A2A}</ProjectGuid>
+    <ProjectGuid>{115A32E2-8275-4167-89E3-55248F9D52E7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ControlModel</RootNamespace>
-    <AssemblyName>ControlViewModel</AssemblyName>
+    <AssemblyName>ControlModel</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

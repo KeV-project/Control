@@ -14,18 +14,18 @@ namespace ControlModel
         public FileInfo this[int index] => _files[index];
 
         public Project()
-		{
+        {
             _files = new List<FileInfo>();
-		}
+        }
 
         public void AddFile(FileInfo file)
-		{
+        {
             _files.Add(file);
-		}
+        }
 
         public void RemoveFile(FileInfo file)
-		{
+        {
             _files.Remove(file);
-		}
+        }
     }
 }
