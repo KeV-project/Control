@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="ModelViewModels\FileDataViewModel.cs" />
     <Compile Include="ModelViewModels\ModelViewModelBase.cs" />
     <Compile Include="WindowViewModels\ControlWindowViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -9,21 +9,21 @@ namespace ControlModel
 {
     public class Project
     {
-        private List<File> _files;
+        private List<FileData> _files;
 
-        public File this[int index] => _files[index];
+        public FileData this[int index] => _files[index];
 
         public Project()
         {
-            _files = new List<File>();
+            _files = new List<FileData>();
         }
 
-        public void AddFile(File file)
+        public void AddFile(FileData file)
         {
             _files.Add(file);
         }
 
-        public void RemoveFile(File file)
+        public void RemoveFile(FileData file)
         {
             _files.Remove(file);
         }

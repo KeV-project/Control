@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ControlModel
 {
-	public class File
+	public class FileData
 	{
 		private FileInfo _filePath;
 
@@ -26,7 +26,7 @@ namespace ControlModel
 
 		public string FileName { get => _filePath.Name; }
 
-		public File(FileInfo filePath)
+		public FileData(FileInfo filePath)
 		{
 			FilePath = filePath;
 		}
