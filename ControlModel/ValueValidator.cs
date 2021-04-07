@@ -21,16 +21,9 @@ namespace ControlModel
 		{
 			const string correctExtension = "Допустимые расширения: " 
 				+ "\".exe\", \".dll\".";
-			if (!IsFileExe(filePath))
+			if (!(IsFileExe(filePath) || IsFileDll(filePath)))
 			{
 				throw new ArgumentException("Файл с именем \"" 
-					+ filePath.Name + "\" имеет недопустимое расширение. " 
-					+ correctExtension);
-			}
-
-			if(!IsFileDll(filePath))
-			{
-				throw new ArgumentException("Файл с именем \""
 					+ filePath.Name + "\" имеет недопустимое расширение. " 
 					+ correctExtension);
 			}

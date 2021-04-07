@@ -10,33 +10,35 @@ namespace ControlViewModel.ModelViewModels
 {
 	public class FileDataViewModel: ModelViewModelBase
 	{
-		private FileData _file;
+		public FileData File { get; private set; }
 
 		public FileInfo FilePath
 		{
 			get
 			{
-				return _file.FilePath;
+				return File.FilePath;
 			}
 			set
 			{
 				try
 				{
-					_file.FilePath = value;
-					RemoveError(nameof(FilePath));
+					File.FilePath = value;
+					RemoveError(nameof(FileName));
 				}
 				catch(ArgumentException ex)
 				{
-					AddError(nameof(FilePath), ex.Message);
+					AddError(nameof(FileName), ex.Message);
 				}
 
-				OnPropertyChanged(nameof(FilePath));
+				OnPropertyChanged(nameof(FileName));
 			}
 		}
 
+		public string FileName { get => File.FileName; }
+
 		public FileDataViewModel(FileData file)
 		{
-			_file = file;
+			File = file;
 		}
 	}
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using ControlViewModel.Commands;
 using ControlViewModel.Services;
+using ControlViewModel.ModelViewModels;
 using ControlModel;
 
 namespace ControlViewModel.WindowViewModels
@@ -14,29 +15,31 @@ namespace ControlViewModel.WindowViewModels
     {
         private Project _project;
 
-        public ObservableCollection<FileData> Files { get; private set; }
+        public ObservableCollection<FileDataViewModel> 
+            FileDataViewModels { get; private set; }
 
         private IFileDialogService _fileDialogService;
 
-        private string _selectedFile;
+        private FileDataViewModel _selectedFileDataViewModel;
 
         public ControlWindowViewModel(IFileDialogService fileDialogService)
 		{
             _project = new Project();
-            Files = new ObservableCollection<FileData>();
+            FileDataViewModels = new ObservableCollection<
+                FileDataViewModel>();
             _fileDialogService = fileDialogService;
 		}
 
-        public string SelectedFile
+        public FileDataViewModel SelectedFileDataViewModel
 		{
 			get
 			{
-                return _selectedFile;
+                return _selectedFileDataViewModel;
 			}
 			set
 			{
-                _selectedFile = value;
-                OnPropertyChanged(nameof(SelectedFile));
+                _selectedFileDataViewModel = value;
+                OnPropertyChanged(nameof(SelectedFileDataViewModel));
 			}
 		}
 
@@ -50,8 +53,12 @@ namespace ControlViewModel.WindowViewModels
                  (_addFileCommand = new RelayCommand(obj =>
                  {
                      if(_fileDialogService.AddFileDialog())
-					 {
-                         _project.AddFile(new FileData(_fileDialogService.FilePath));
+                     {
+                         FileDataViewModel fileDataViewModel = 
+                            new FileDataViewModel(new FileData());
+                         fileDataViewModel.FilePath = _fileDialogService.FilePath;
+                         _project.AddFile(fileDataViewModel.File);
+                         FileDataViewModels.Add(fileDataViewModel);
 					 }
                  }));
             }

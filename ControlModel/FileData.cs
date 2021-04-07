@@ -20,11 +20,16 @@ namespace ControlModel
 			set
 			{
 				_filePath = value;
-				ValueValidator.AssertCorrectFile(_filePath);
+				if(value != null)
+				{
+					ValueValidator.AssertCorrectFile(_filePath);
+				}
 			}
 		}
 
 		public string FileName { get => _filePath.Name; }
+
+		public FileData(): this(null) { }
 
 		public FileData(FileInfo filePath)
 		{

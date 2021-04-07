@@ -7,14 +7,79 @@
         mc:Ignorable="d"
         Title="Control" Height="650" Width="420" ResizeMode="NoResize"
         FontSize="14" WindowStartupLocation="CenterScreen">
+    
+    <Window.Resources>
+        <Style x:Key="ValidationFailed">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Setter Property="Control.ToolTip" Value="{Binding
+                        RelativeSource={RelativeSource Self},
+                        Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="XStyle" TargetType="Label">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Setter Property="Background" Value="#FEE"/>
+                    <Setter Property="Foreground" Value="#FEE"/>
+                </Trigger>
+                <DataTrigger Binding="{Binding RelativeSource=
+                    {RelativeSource Mode=FindAncestor,
+                     AncestorType={x:Type ListBoxItem}},
+                     Path=IsMouseOver}" Value="True">
+                    <Setter Property="Foreground" Value="Red"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+    </Window.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="0.07*"/>
         </Grid.RowDefinitions>
 
-        <ListBox ItemsSource="{Binding Files}"
-                 SelectedItem="{Binding SelectedFile}"/>
+        <ListBox ItemsSource="{Binding FileDataViewModels}"
+                 SelectedItem="{Binding SelectedFileDataViewModel}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" Margin="5">
+
+                        <StackPanel.Resources>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <Trigger Property="Validation.HasError" Value="True">
+                                        <Setter Property="Background" Value="#FEE"/>
+                                        <Setter Property="Control.ToolTip" Value="{Binding
+                                                RelativeSource={RelativeSource Self},
+                                                Path=(Validation.Errors)[0].ErrorContent}"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+
+                        </StackPanel.Resources>
+                        
+                        <TextBlock Width="360" Height="20"
+                                   Text="{Binding Path=FileName,
+                                   NotifyOnValidationError=True}"
+                                   Validation.ErrorTemplate="{x:Null}"/>
+
+                        <Label FontSize="14" Height="20"
+                                   Padding="10,0,0,0" Content="❌"
+                                   DataContext="{Binding Path=FileName,
+                                   NotifyOnValidationError=True}"
+                                   Validation.ErrorTemplate="{x:Null}"
+                                   Style="{StaticResource XStyle}"/>
+
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
         <Button Grid.Row="1" Content="Add file" 
                 Command="{Binding AddFileCommand}"/>
     </Grid>
