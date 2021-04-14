@@ -42,16 +42,17 @@ namespace ControlViewModel.WindowViewModels
             }
         }
 
-        private RelayCommand _removeFileCommand;
+        private RelayCommand<FileDataViewModel> _removeFileCommand;
 
-        public RelayCommand RemoveCommand
+        public RelayCommand<FileDataViewModel> RemoveFileCommand
 		{
 			get
 			{
                 return _removeFileCommand ??
-                 (_removeFileCommand = new RelayCommand(() =>
+                 (_removeFileCommand = new RelayCommand<FileDataViewModel>(
+                     fileDataViewModel =>
                  {
-                     
+                     ProjectViewModel.RemoveFileDataViewModel(fileDataViewModel);
                  }));
             }
 		}

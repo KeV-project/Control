@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
-using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using ControlModel;
 
 namespace ControlViewModel.ModelViewModels
@@ -48,6 +48,12 @@ namespace ControlViewModel.ModelViewModels
 				FileDataViewModels.Add(fileDataViewModel);
 				fileDataViewModel.FilePath = filePaths[i];
 			}
+		}
+
+		public void RemoveFileDataViewModel(
+			FileDataViewModel fileDataViewModel)
+		{
+			FileDataViewModels.Remove(fileDataViewModel);
 		}
 	}
 }

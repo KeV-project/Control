@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ControlModel;
+using GalaSoft.MvvmLight.Command;
 
 namespace ControlViewModel.ModelViewModels
 {

@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:local="clr-namespace:Control"
         mc:Ignorable="d"
         Title="Control" Height="650" Width="420" ResizeMode="NoResize"
@@ -38,7 +39,7 @@
 
     </Window.Resources>
     
-    <Grid>
+    <Grid x:Name="Grid1">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="0.07*"/>
@@ -69,12 +70,27 @@
                                    NotifyOnValidationError=True}"
                                    Validation.ErrorTemplate="{x:Null}"/>
 
-                        <Label FontSize="14" Height="20"
+                        <Label x:Name="XLable" FontSize="14" Height="20"
                                    Padding="10,0,0,0" Content="❌"
                                    DataContext="{Binding Path=FileName,
                                    NotifyOnValidationError=True}"
                                    Validation.ErrorTemplate="{x:Null}"
-                                   Style="{StaticResource XStyle}"/>
+                                   Style="{StaticResource XStyle}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                    <i:InvokeCommandAction Command="{Binding 
+                                        Path=DataContext.RemoveFileCommand, 
+                                        RelativeSource={RelativeSource 
+                                        Mode=FindAncestor, 
+                                        AncestorType={x:Type Grid}}}"
+                                        CommandParameter="{Binding 
+                                        Path=DataContext, 
+                                        RelativeSource={RelativeSource 
+                                        Mode=FindAncestor, 
+                                        AncestorType={x:Type StackPanel}}}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Label>
 
                     </StackPanel>
                 </DataTemplate>
