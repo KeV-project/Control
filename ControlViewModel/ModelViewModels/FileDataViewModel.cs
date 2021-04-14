@@ -1,18 +1,24 @@
 ﻿using System;
 using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ControlModel;
-using GalaSoft.MvvmLight.Command;
 
 namespace ControlViewModel.ModelViewModels
 {
+	/// <summary>
+	/// Класс <see cref="FileDataViewModel"/> предназначен для
+	/// корректного взаимодействия с объектом класса 
+	/// <see cref="FileData"/>
+	/// </summary>
 	public class FileDataViewModel: ModelViewModelBase
 	{
+		/// <summary>
+		/// Возвращает и устанавливает объект класса <see cref="FileData"/>
+		/// </summary>
 		public FileData File { get; private set; }
 
+		/// <summary>
+		/// Возвращает у устанавливает полный путь к файлу
+		/// </summary>
 		public FileInfo FilePath
 		{
 			get
@@ -34,9 +40,16 @@ namespace ControlViewModel.ModelViewModels
 				RaisePropertyChanged(nameof(FileName));
 			}
 		}
-
+		
+		/// <summary>
+		/// Возвращает имя файла
+		/// </summary>
 		public string FileName { get => File.FileName; }
 
+		/// <summary>
+		/// Инициализирует свойства объекта класса
+		/// </summary>
+		/// <param name="file">Объект класса <see cref="FileData"/></param>
 		public FileDataViewModel(FileData file)
 		{
 			File = file;

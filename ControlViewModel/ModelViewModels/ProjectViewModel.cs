@@ -5,20 +5,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
-using GalaSoft.MvvmLight.Command;
 using ControlModel;
 
 namespace ControlViewModel.ModelViewModels
 {
+	/// <summary>
+	/// Класс <see cref="ProjectViewModel"/> предназначен для
+	/// организации взаимодействия с объектом класса <see cref="Project"/>
+	/// </summary>
 	public class ProjectViewModel: ModelViewModelBase
 	{
-		private Project _project;
-
+		/// <summary>
+		/// Возвращает и устанавливает список ViewModels объектов
+		/// класса <see cref="FileData"/>
+		/// </summary>
 		public ObservableCollection<FileDataViewModel>
 			FileDataViewModels{ get; private set; }
 
+		/// <summary>
+		/// Хранит текущую ViewModel класса <see cref="FileData"/>
+		/// </summary>
 		private FileDataViewModel _selectedFileDataViewModel;
 
+		/// <summary>
+		/// Возвращает и устанавливает текущую ViewModel
+		/// класса <see cref="FileData"/>
+		/// </summary>
 		public FileDataViewModel SelectedFileDataViewModel
 		{
 			get
@@ -32,13 +44,20 @@ namespace ControlViewModel.ModelViewModels
 			}
 		}
 
+		/// <summary>
+		/// Инициализирует свойства объекта класса
+		/// </summary>
 		public ProjectViewModel()
 		{
 			FileDataViewModels = new ObservableCollection<
 				FileDataViewModel>();
-			_project = new Project();
 		}
 
+		/// <summary>
+		/// Добавляет новые ViewModels класса <see cref="FileData"/>
+		/// в список ViewModel проекта
+		/// </summary>
+		/// <param name="filePaths">Добавляемая ViewModel</param>
 		public void AddFileDataViewModels(List<FileInfo> filePaths)
 		{
 			for(int i = 0; i < filePaths.Count; i++)
@@ -50,6 +69,11 @@ namespace ControlViewModel.ModelViewModels
 			}
 		}
 
+		/// <summary>
+		/// Удаляет ViewModel класса <see cref="FileData"/>
+		/// из списка ViewModel проекта
+		/// </summary>
+		/// <param name="fileDataViewModel">Удаляемая ViewModel</param>
 		public void RemoveFileDataViewModel(
 			FileDataViewModel fileDataViewModel)
 		{

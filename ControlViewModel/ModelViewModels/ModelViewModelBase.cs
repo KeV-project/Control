@@ -1,22 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Collections;
 using GalaSoft.MvvmLight;
 
 namespace ControlViewModel.ModelViewModels
 {
-	public abstract class ModelViewModelBase: ViewModelBase, 
-		INotifyDataErrorInfo
-	{
+    /// <summary>
+    /// Класс <see cref="ModelViewModelBase"/> предназначен для 
+    /// проведения валидации данных 
+    /// </summary>
+    public abstract class ModelViewModelBase : ViewModelBase,
+        INotifyDataErrorInfo
+    {
+        /// <summary>
+        /// Хранит свойства объекта и соответствующие 
+        /// им сообщения об ошибках
+        /// </summary>
         private Dictionary<string, List<string>> _errors =
             new Dictionary<string, List<string>>();
 
+        /// <summary>
+        /// Событие, возникающее при изменении 
+        /// списка ошибок валидации объекта
+        /// </summary>
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
 
+        /// <summary>
+        /// Возвращает перечень сообщений об ошибках валидации свойства
+        /// </summary>
+        /// <param name="propertyName">Валидируемое свойство</param>
+        /// <returns></returns>
         public IEnumerable GetErrors(string propertyName)
         {
             if (_errors.ContainsKey(propertyName))
@@ -26,6 +40,10 @@ namespace ControlViewModel.ModelViewModels
             return null;
         }
 
+        /// <summary>
+        /// Возвращает true, если объект имеет ошибки валидации,
+        /// в противном случае возвращает false
+        /// </summary>
         public bool HasErrors
         {
             get
@@ -34,14 +52,18 @@ namespace ControlViewModel.ModelViewModels
             }
         }
 
-        public bool IsValid
-        {
-            get
-            {
-                return !HasErrors;
-            }
-        }
+        /// <summary>
+        /// Возвращает true, если объект успешно прошел валидацию,
+        /// в противном случае возвращает false
+        /// </summary>
+        public bool IsValid => !HasErrors;
 
+        /// <summary>
+        /// Добавляет новые сведения об ошибке валидации в список объекта
+        /// </summary>
+        /// <param name="propertyName">Свойство, 
+        /// не прошедшее валидацию</param>
+        /// <param name="error">Сообщение об ошибке</param>
         public void AddError(string propertyName, string error)
         {
             _errors[propertyName] = new List<string>() { error };
@@ -49,6 +71,10 @@ namespace ControlViewModel.ModelViewModels
             RaisePropertyChanged(nameof(IsValid));
         }
 
+        /// <summary>
+        /// Удаляет ошибку валидации из списка
+        /// </summary>
+        /// <param name="propertyName">Свойство, прошедшее валидацию</param>
         public void RemoveError(string propertyName)
         {
             if (_errors.ContainsKey(propertyName))
@@ -59,8 +85,13 @@ namespace ControlViewModel.ModelViewModels
             RaisePropertyChanged(nameof(IsValid));
         }
 
+        /// <summary>
+        /// Вызывает событие, оповещающее View об 
+        /// изменении списка ошибок валидации
+        /// </summary>
+        /// <param name="propertyName"></param>
         public void NotifyErrorsChanged(string propertyName)
-        { 
+        {
             ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(
                 propertyName));
         }
