@@ -1,4 +1,5 @@
 ﻿<Window x:Class="ControlView.ControlWindow"
+        x:Name="Window"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,20 +7,10 @@
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:local="clr-namespace:Control"
         mc:Ignorable="d"
-        Title="Control" Height="650" Width="420" ResizeMode="NoResize"
+        Title="Control" Height="650" Width="420"
         FontSize="14" WindowStartupLocation="CenterScreen">
-    
-    <Window.Resources>
-        <Style x:Key="ValidationFailed">
-            <Style.Triggers>
-                <Trigger Property="Validation.HasError" Value="True">
-                    <Setter Property="Control.ToolTip" Value="{Binding
-                        RelativeSource={RelativeSource Self},
-                        Path=(Validation.Errors)[0].ErrorContent}"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
 
+    <Window.Resources>
         <Style x:Key="XStyle" TargetType="Label">
             <Setter Property="Background" Value="White"/>
             <Setter Property="Foreground" Value="White"/>
@@ -37,21 +28,70 @@
             </Style.Triggers>
         </Style>
 
+        <Style TargetType="{x:Type ListBoxItem}" x:Key="ListStyle">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter Margin="5"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="BorderBrush" Value="Red"/>
+                                <Setter Property="BorderThickness" Value="2"/>
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Foreground" Value="Black"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <ControlTemplate x:Key="NoMouseOverButtonTemplate" 
+                 TargetType="Button">
+            <Border Background="{TemplateBinding Background}"
+          BorderBrush="{TemplateBinding BorderBrush}"
+          BorderThickness="{TemplateBinding BorderThickness}">
+                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+            </Border>
+
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsEnabled"
+             Value="False">
+                    <Setter Property="Background"
+              Value="{x:Static SystemColors.ControlLightBrush}" />
+                    <Setter Property="Foreground"
+              Value="{x:Static SystemColors.GrayTextBrush}" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
     </Window.Resources>
-    
-    <Grid x:Name="Grid1">
+
+    <!--BorderThickness="0" BorderBrush="White"-->
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="0.07*"/>
+            <RowDefinition Height="{Binding ElementName=FilesListBox, Path=Height}" />
+            <RowDefinition MinHeight="50"/>
         </Grid.RowDefinitions>
 
         <ListBox ItemsSource="{Binding ProjectViewModel.FileDataViewModels}"
-                 SelectedItem="{Binding ProjectViewModel.SelectedFileDataViewModel}">
+                 SelectedItem="{Binding ProjectViewModel.SelectedFileDataViewModel}"
+                 ItemContainerStyle="{StaticResource ListStyle}" x:Name="FilesListBox"
+                 >
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal" Margin="5">
+                    <Grid Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="0.05*"/>
+                        </Grid.ColumnDefinitions>
 
-                        <StackPanel.Resources>
+                        <Grid.Resources>
                             <Style TargetType="TextBlock">
                                 <Style.Triggers>
                                     <Trigger Property="Validation.HasError" Value="True">
@@ -62,15 +102,14 @@
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
+                        </Grid.Resources>
 
-                        </StackPanel.Resources>
-                        
-                        <TextBlock Width="360" Height="20"
+                        <TextBlock Height="20"
                                    Text="{Binding Path=FileName,
                                    NotifyOnValidationError=True}"
                                    Validation.ErrorTemplate="{x:Null}"/>
 
-                        <Label x:Name="XLable" FontSize="14" Height="20"
+                        <Label x:Name="XLable" Grid.Column="1" FontSize="14" Height="20"
                                    Padding="10,0,0,0" Content="❌"
                                    DataContext="{Binding Path=FileName,
                                    NotifyOnValidationError=True}"
@@ -82,21 +121,26 @@
                                         Path=DataContext.RemoveFileCommand, 
                                         RelativeSource={RelativeSource 
                                         Mode=FindAncestor, 
-                                        AncestorType={x:Type Grid}}}"
+                                        AncestorType={x:Type Grid},AncestorLevel=2}}"
                                         CommandParameter="{Binding 
                                         Path=DataContext, 
                                         RelativeSource={RelativeSource 
                                         Mode=FindAncestor, 
-                                        AncestorType={x:Type StackPanel}}}"/>
+                                        AncestorType={x:Type Grid}}}"/>
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </Label>
-
-                    </StackPanel>
+                    </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button Grid.Row="1" Content="Add file" 
-                Command="{Binding AddFilesCommand}"/>
+        <Button Grid.Row="1" Content="" VerticalAlignment="Top" HorizontalAlignment="Left" Height="40" Width="40"
+                Command="{Binding AddFilesCommand}" Margin="0,0,361,0"
+                BorderThickness="0" BorderBrush="White" 
+                Template="{StaticResource NoMouseOverButtonTemplate}">
+            <Button.Background>
+                <ImageBrush ImageSource="icons8-плюс-64.png"/>
+            </Button.Background>
+        </Button>
     </Grid>
 </Window>
