@@ -1,21 +1,30 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Win32;
-using System.Windows;
 using ControlViewModel.Services;
 
 namespace ControlView.Services
 {
+    /// <summary>
+    /// Класс <see cref="FileDialogService"/> предназначен для
+    /// организации взаимодействия с окном для выбора файлов
+    /// </summary>
 	public class FileDialogService: IFileDialogService
 	{
+        /// <summary>
+        /// Хранит список обхектов класса <see cref="FileInfo"/>
+        /// </summary>
         private List<FileInfo> _filePaths;
 
+        /// <summary>
+        /// Возвращает список обхектов класса <see cref="FileInfo"/>
+        /// </summary>
         public List<FileInfo> FilePaths => _filePaths;
 
+        /// <summary>
+        /// Открывает окно для выбора файлов
+        /// </summary>
+        /// <returns></returns>
         public bool AddFileDialog()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
