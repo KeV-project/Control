@@ -12,14 +12,21 @@ namespace ControlView.Services
 {
 	public class FileDialogService: IFileDialogService
 	{
-		public FileInfo FilePath { get; set; }
+        private List<FileInfo> _filePaths;
+
+        public List<FileInfo> FilePaths => _filePaths;
 
         public bool AddFileDialog()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Multiselect = true;
             if (openFileDialog.ShowDialog() == true)
             {
-                FilePath = new FileInfo(openFileDialog.FileName);
+                _filePaths = new List<FileInfo>();
+                for(int i = 0; i < openFileDialog.FileNames.Length; i++)
+				{
+                    _filePaths.Add(new FileInfo(openFileDialog.FileNames[i]));
+				}
                 return true;
             }
             return false;

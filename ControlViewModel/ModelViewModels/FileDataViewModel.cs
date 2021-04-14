@@ -30,7 +30,7 @@ namespace ControlViewModel.ModelViewModels
 					AddError(nameof(FileName), ex.Message);
 				}
 
-				OnPropertyChanged(nameof(FileName));
+				RaisePropertyChanged(nameof(FileName));
 			}
 		}
 

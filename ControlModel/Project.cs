@@ -9,23 +9,23 @@ namespace ControlModel
 {
     public class Project
     {
-        private List<FileData> _files;
+        private List<FileData> _filesData;
 
-        public FileData this[int index] => _files[index];
+        public FileData this[int index] => _filesData[index];
 
         public Project()
         {
-            _files = new List<FileData>();
+            _filesData = new List<FileData>();
         }
 
-        public void AddFile(FileData file)
+        public void AddFileData(FileData fileData)
         {
-            _files.Add(file);
+            _filesData.Add(fileData);
         }
 
-        public void RemoveFile(FileData file)
+        public void RemoveFileData(FileData fileData)
         {
-            _files.Remove(file);
+            _filesData.Remove(fileData);
         }
     }
 }

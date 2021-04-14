@@ -27,7 +27,7 @@ namespace ControlModel
 			}
 		}
 
-		public string FileName { get => _filePath.Name; }
+		public string FileName => _filePath.Name;
 
 		public FileData(): this(null) { }
 

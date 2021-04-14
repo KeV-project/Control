@@ -44,8 +44,8 @@
             <RowDefinition Height="0.07*"/>
         </Grid.RowDefinitions>
 
-        <ListBox ItemsSource="{Binding FileDataViewModels}"
-                 SelectedItem="{Binding SelectedFileDataViewModel}">
+        <ListBox ItemsSource="{Binding ProjectViewModel.FileDataViewModels}"
+                 SelectedItem="{Binding ProjectViewModel.SelectedFileDataViewModel}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal" Margin="5">
@@ -81,6 +81,6 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <Button Grid.Row="1" Content="Add file" 
-                Command="{Binding AddFileCommand}"/>
+                Command="{Binding AddFilesCommand}"/>
     </Grid>
 </Window>

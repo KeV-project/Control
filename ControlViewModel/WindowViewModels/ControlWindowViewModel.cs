@@ -4,61 +4,39 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
-using ControlViewModel.Commands;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using ControlViewModel.Services;
 using ControlViewModel.ModelViewModels;
 using ControlModel;
 
 namespace ControlViewModel.WindowViewModels
 {
-    public class ControlWindowViewModel: ViewModelBase
+    public class ControlWindowViewModel
     {
-        private Project _project;
-
-        public ObservableCollection<FileDataViewModel> 
-            FileDataViewModels { get; private set; }
+        public ProjectViewModel ProjectViewModel { get; private set; }
 
         private IFileDialogService _fileDialogService;
 
-        private FileDataViewModel _selectedFileDataViewModel;
-
         public ControlWindowViewModel(IFileDialogService fileDialogService)
 		{
-            _project = new Project();
-            FileDataViewModels = new ObservableCollection<
-                FileDataViewModel>();
+            ProjectViewModel = new ProjectViewModel();
             _fileDialogService = fileDialogService;
 		}
 
-        public FileDataViewModel SelectedFileDataViewModel
-		{
-			get
-			{
-                return _selectedFileDataViewModel;
-			}
-			set
-			{
-                _selectedFileDataViewModel = value;
-                OnPropertyChanged(nameof(SelectedFileDataViewModel));
-			}
-		}
+        private RelayCommand _addFilesCommand;
 
-        private RelayCommand _addFileCommand;
-
-        public RelayCommand AddFileCommand
+        public RelayCommand AddFilesCommand
         {
             get
             {
-                return _addFileCommand ??
-                 (_addFileCommand = new RelayCommand(obj =>
+                return _addFilesCommand ??
+                 (_addFilesCommand = new RelayCommand(() =>
                  {
                      if(_fileDialogService.AddFileDialog())
                      {
-                         FileDataViewModel fileDataViewModel = 
-                            new FileDataViewModel(new FileData());
-                         fileDataViewModel.FilePath = _fileDialogService.FilePath;
-                         _project.AddFile(fileDataViewModel.File);
-                         FileDataViewModels.Add(fileDataViewModel);
+                         ProjectViewModel.AddFileDataViewModels(
+                             _fileDialogService.FilePaths);
 					 }
                  }));
             }
@@ -71,7 +49,7 @@ namespace ControlViewModel.WindowViewModels
 			get
 			{
                 return _removeFileCommand ??
-                 (_removeFileCommand = new RelayCommand(obj =>
+                 (_removeFileCommand = new RelayCommand(() =>
                  {
                      
                  }));

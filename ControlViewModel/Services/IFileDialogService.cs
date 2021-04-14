@@ -9,7 +9,7 @@ namespace ControlViewModel.Services
 {
 	public interface IFileDialogService
 	{
-		FileInfo FilePath { get; set; }
+		List<FileInfo> FilePaths { get; }
 
 		bool AddFileDialog();
 	}

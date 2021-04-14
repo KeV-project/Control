@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Collections;
+using GalaSoft.MvvmLight;
 
 namespace ControlViewModel.ModelViewModels
 {
@@ -45,7 +46,7 @@ namespace ControlViewModel.ModelViewModels
         {
             _errors[propertyName] = new List<string>() { error };
             NotifyErrorsChanged(propertyName);
-            OnPropertyChanged(nameof(IsValid));
+            RaisePropertyChanged(nameof(IsValid));
         }
 
         public void RemoveError(string propertyName)
@@ -55,7 +56,7 @@ namespace ControlViewModel.ModelViewModels
                 _errors.Remove(propertyName);
             }
             NotifyErrorsChanged(propertyName);
-            OnPropertyChanged(nameof(IsValid));
+            RaisePropertyChanged(nameof(IsValid));
         }
 
         public void NotifyErrorsChanged(string propertyName)
