@@ -31,12 +31,12 @@ namespace ControlView.Services
             openFileDialog.Multiselect = true;
             if (openFileDialog.ShowDialog() == true)
             {
-                //TODO: foreach
                 _filePaths = new List<FileInfo>();
-                for(int i = 0; i < openFileDialog.FileNames.Length; i++)
-				{
-                    _filePaths.Add(new FileInfo(openFileDialog.FileNames[i]));
-				}
+                // TODO: foreach +
+                foreach (string fileName in openFileDialog.FileNames)
+                {
+                    _filePaths.Add(new FileInfo(fileName));
+                }
                 return true;
             }
             return false;

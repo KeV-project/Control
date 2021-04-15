@@ -36,9 +36,8 @@ namespace ControlViewModel.ModelViewModels
 			}
 			set
 			{
-				//TODO: Set(ref _selectedFileDataViewModel, value);
-				_selectedFileDataViewModel = value;
-				RaisePropertyChanged(nameof(SelectedFileDataViewModel));
+				// TODO: Set(ref _selectedFileDataViewModel, value) +
+				Set(ref _selectedFileDataViewModel, value);
 			}
 		}
 
@@ -57,14 +56,14 @@ namespace ControlViewModel.ModelViewModels
 		/// </summary>
 		/// <param name="filePaths">Добавляемая ViewModel</param>
 		public void AddFileDataViewModels(List<FileInfo> filePaths)
-		{
-			//TODO: foreach?
-			for(int i = 0; i < filePaths.Count; i++)
+		{ 
+			//TODO: foreach? +
+			foreach(FileInfo filePath in filePaths)
 			{
-				FileDataViewModel fileDataViewModel = 
+				FileDataViewModel fileDataViewModel =
 					new FileDataViewModel(new FileData());
 				FileDataViewModels.Add(fileDataViewModel);
-				fileDataViewModel.FilePath = filePaths[i];
+				fileDataViewModel.FilePath = filePath;
 			}
 		}
 
