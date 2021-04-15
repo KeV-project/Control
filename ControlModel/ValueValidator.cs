@@ -9,6 +9,8 @@ namespace ControlModel
 	/// </summary>
 	public static class ValueValidator
 	{
+		//TODO: лучше переделать в список расширений
+
 		/// <summary>
 		/// Выполняет проверку разрешения файла
 		/// </summary>

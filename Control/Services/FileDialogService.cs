@@ -31,6 +31,7 @@ namespace ControlView.Services
             openFileDialog.Multiselect = true;
             if (openFileDialog.ShowDialog() == true)
             {
+                //TODO: foreach
                 _filePaths = new List<FileInfo>();
                 for(int i = 0; i < openFileDialog.FileNames.Length; i++)
 				{

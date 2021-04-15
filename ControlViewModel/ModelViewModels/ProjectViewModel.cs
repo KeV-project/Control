@@ -1,10 +1,7 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+using ViewModelLib;
 using ControlModel;
 
 namespace ControlViewModel.ModelViewModels
@@ -13,7 +10,7 @@ namespace ControlViewModel.ModelViewModels
 	/// Класс <see cref="ProjectViewModel"/> предназначен для
 	/// организации взаимодействия с объектом класса <see cref="Project"/>
 	/// </summary>
-	public class ProjectViewModel: ModelViewModelBase
+	public class ProjectViewModel: NotifyDataErrorViewModelBase
 	{
 		/// <summary>
 		/// Возвращает и устанавливает список ViewModels объектов
@@ -39,6 +36,7 @@ namespace ControlViewModel.ModelViewModels
 			}
 			set
 			{
+				//TODO: Set(ref _selectedFileDataViewModel, value);
 				_selectedFileDataViewModel = value;
 				RaisePropertyChanged(nameof(SelectedFileDataViewModel));
 			}
@@ -60,6 +58,7 @@ namespace ControlViewModel.ModelViewModels
 		/// <param name="filePaths">Добавляемая ViewModel</param>
 		public void AddFileDataViewModels(List<FileInfo> filePaths)
 		{
+			//TODO: foreach?
 			for(int i = 0; i < filePaths.Count; i++)
 			{
 				FileDataViewModel fileDataViewModel = 

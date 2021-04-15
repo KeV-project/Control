@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using ViewModelLib;
 using ControlModel;
 
 namespace ControlViewModel.ModelViewModels
@@ -9,7 +10,7 @@ namespace ControlViewModel.ModelViewModels
 	/// корректного взаимодействия с объектом класса 
 	/// <see cref="FileData"/>
 	/// </summary>
-	public class FileDataViewModel: ModelViewModelBase
+	public class FileDataViewModel: NotifyDataErrorViewModelBase
 	{
 		/// <summary>
 		/// Возвращает и устанавливает объект класса <see cref="FileData"/>
