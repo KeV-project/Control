@@ -86,9 +86,8 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <ListBox ItemsSource="{Binding ProjectViewModel.FileDataViewModels}"
-                 SelectedItem=
-                 "{Binding ProjectViewModel.SelectedFileDataViewModel}"
+        <ListBox ItemsSource="{Binding FileDataViewModels}"
+                 SelectedItem="{Binding SelectedFileDataViewModel}"
                  ItemContainerStyle="{StaticResource ListStyle}"
                  x:Name="FilesListBox"
                  BorderThickness="0" BorderBrush="White">

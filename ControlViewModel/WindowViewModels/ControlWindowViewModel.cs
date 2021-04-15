@@ -1,5 +1,8 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using System.IO;
+using GalaSoft.MvvmLight.Command;
 using ControlViewModel.Services;
+using System.Collections.ObjectModel;
+using ViewModelLib;
 using ControlViewModel.ModelViewModels;
 using ControlModel;
 
@@ -10,18 +13,42 @@ namespace ControlViewModel.WindowViewModels
     /// для организации взаимодействия модели и представления
     /// главного окна приложения
     /// </summary>
-    public class ControlWindowViewModel
+    public class ControlWindowViewModel: NotifyDataErrorViewModelBase
     {
-        /// <summary>
-        /// Возвращает и устанавливает ViewModel для объекта
-        /// класса <see cref="Project"/>
-        /// </summary>
-        public ProjectViewModel ProjectViewModel { get; private set; }
-
         /// <summary>
         /// Хранит сервис для взаимодействия с окном для выбора файлов
         /// </summary>
         private IFileDialogService _fileDialogService;
+
+        /// <summary>
+		/// Возвращает и устанавливает список ViewModels объектов
+		/// класса <see cref="FileData"/>
+		/// </summary>
+		public ObservableCollection<FileDataViewModel>
+            FileDataViewModels
+            { get; private set; }
+
+        /// <summary>
+        /// Хранит текущую ViewModel класса <see cref="FileData"/>
+        /// </summary>
+        private FileDataViewModel _selectedFileDataViewModel;
+
+        /// <summary>
+        /// Возвращает и устанавливает текущую ViewModel
+        /// класса <see cref="FileData"/>
+        /// </summary>
+        public FileDataViewModel SelectedFileDataViewModel
+        {
+            get
+            {
+                return _selectedFileDataViewModel;
+            }
+            set
+            {
+                // TODO: Set(ref _selectedFileDataViewModel, value) +
+                Set(ref _selectedFileDataViewModel, value);
+            }
+        }
 
         /// <summary>
         /// Инициализирует свойства объекта класса
@@ -30,7 +57,8 @@ namespace ControlViewModel.WindowViewModels
         /// окном для выбора файлов</param>
         public ControlWindowViewModel(IFileDialogService fileDialogService)
 		{
-            ProjectViewModel = new ProjectViewModel();
+            FileDataViewModels = new ObservableCollection<
+                FileDataViewModel>();
             _fileDialogService = fileDialogService;
 		}
 
@@ -51,9 +79,15 @@ namespace ControlViewModel.WindowViewModels
                  {
                      if(_fileDialogService.AddFileDialog())
                      {
-                         ProjectViewModel.AddFileDataViewModels(
-                             _fileDialogService.FilePaths);
-					 }
+                         foreach (FileInfo filePath in 
+                            _fileDialogService.FilePaths)
+                         {
+                             FileDataViewModel fileDataViewModel =
+                                 new FileDataViewModel(new FileData());
+                             FileDataViewModels.Add(fileDataViewModel);
+                             fileDataViewModel.FilePath = filePath;
+                         }
+                     }
                  }));
             }
         }
@@ -74,7 +108,7 @@ namespace ControlViewModel.WindowViewModels
                  (_removeFileCommand = new RelayCommand<FileDataViewModel>(
                      fileDataViewModel =>
                  {
-                     ProjectViewModel.RemoveFileDataViewModel(fileDataViewModel);
+                     FileDataViewModels.Remove(fileDataViewModel);
                  }));
             }
 		}
