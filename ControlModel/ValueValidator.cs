@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Collections.Generic;
 
 namespace ControlModel
 {
@@ -9,30 +10,33 @@ namespace ControlModel
 	/// </summary>
 	public static class ValueValidator
 	{
-		//TODO: лучше переделать в список расширений
+		//TODO: лучше переделать в список расширений +
+		/// <summary>
+		/// Хранит список допустимых расширений
+		/// </summary>
+		private static readonly List<string> _extensions = 
+			new List<string>()
+		{
+			".exe",
+			".dll"
+		};
 
 		/// <summary>
-		/// Выполняет проверку разрешения файла
+		/// Выполняет проверку расширения файла
 		/// </summary>
-		/// <param name="filePath">Путь к файлу</param>
-		/// <returns>Возвращает true, если файл имеет разрешение
-		/// .exe, иначе позвращает false</returns>
-		private static bool IsFileExe(FileInfo filePath)
+		/// <param name="filePath">Проверяемый файл</param>
+		/// <returns>Возвращает true, если файд имеет допустимое
+		/// расширение, иначе возвращает false</returns>
+		private static bool IsCorrectFileExtension(FileInfo filePath)
 		{
-			const string extension = ".exe";
-			return filePath.Extension == extension;
-		}
-
-		/// <summary>
-		/// Выполняет проверку разрешения файла
-		/// </summary>
-		/// <param name="filePath">Путь к файлу</param>
-		/// <returns>Возвращает true, если файл имеет разрешение
-		/// .dll, иначе позвращает false</returns>
-		private static bool IsFileDll(FileInfo filePath)
-		{
-			const string extension = ".dll";
-			return filePath.Extension == extension;
+			foreach(string extension in _extensions)
+			{
+				if(filePath.Extension == extension)
+				{
+					return true;
+				}
+			}
+			return false;
 		}
 
 		/// <summary>
@@ -40,15 +44,14 @@ namespace ControlModel
 		/// если файл имеет недопустимое расширение
 		/// </summary>
 		/// <param name="filePath">Проверяемый файл</param>
-		public static void AssertCorrectFile(FileInfo filePath)
-		{
-			const string correctExtension = "Допустимые расширения: " 
-				+ "\".exe\", \".dll\".";
-			if (!(IsFileExe(filePath) || IsFileDll(filePath)))
+		public static void AssertCorrectFileExtension(FileInfo filePath)
+		{ 
+			if (!IsCorrectFileExtension(filePath))
 			{
 				throw new ArgumentException("Файл с именем \"" 
 					+ filePath.Name + "\" имеет недопустимое расширение. " 
-					+ correctExtension);
+					+ "Допустимые расширения: \"" + _extensions[0] + "\", "
+					+ _extensions[1] + "\".");
 			}
 		}
 	}
