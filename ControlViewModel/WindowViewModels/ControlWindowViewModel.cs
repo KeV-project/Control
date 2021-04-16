@@ -15,6 +15,23 @@ namespace ControlViewModel.WindowViewModels
     /// </summary>
     public class ControlWindowViewModel: NotifyDataErrorViewModelBase
     {
+        private const double MIN_BUTTON_HEIGHT = 50;
+
+        private double _maxListBoxHeight = 0;
+
+        public double MaxListBoxHeigth
+        {
+            get
+            {
+                return _maxListBoxHeight;
+            }
+            set
+            {
+                _maxListBoxHeight = value;
+                RaisePropertyChanged(nameof(MaxListBoxHeigth));
+            }
+        }
+
         /// <summary>
         /// Хранит сервис для взаимодействия с окном для выбора файлов
         /// </summary>
@@ -62,10 +79,25 @@ namespace ControlViewModel.WindowViewModels
             _fileDialogService = fileDialogService;
 		}
 
-        /// <summary>
-        /// Хранит команду добавления файла
-        /// </summary>
-        private RelayCommand _addFilesCommand;
+		private RelayCommand<double> _changeListBoxHeight;
+
+		public RelayCommand<double> ChangeListBoxHeight
+		{
+			get
+			{
+				return _changeListBoxHeight ??
+				 (_changeListBoxHeight = new RelayCommand<double>(
+					 gridHeight =>
+				 {
+                     MaxListBoxHeigth = gridHeight - MIN_BUTTON_HEIGHT;
+                 }));
+			}
+		}
+
+		/// <summary>
+		/// Хранит команду добавления файла
+		/// </summary>
+		private RelayCommand _addFilesCommand;
 
         /// <summary>
         /// Возвращает команду добавления файла

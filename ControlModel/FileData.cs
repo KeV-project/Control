@@ -26,7 +26,7 @@ namespace ControlModel
 				_filePath = value;
 				if(value != null)
 				{
-					ValueValidator.AssertCorrectFile(_filePath);
+					ValueValidator.AssertCorrectFileExtension(_filePath);
 				}
 			}
 		}

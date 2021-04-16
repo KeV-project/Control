@@ -4,9 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:c="clr-namespace:CalcBinding;assembly=CalcBinding"
         xmlns:local="clr-namespace:Control"
         mc:Ignorable="d"
         Title="Control" Height="650" Width="420"
+        MinHeight="650" MinWidth="420"
         FontSize="14" WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
@@ -82,15 +84,33 @@
     <Grid x:Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="{Binding ElementName=FilesListBox, 
-                Path=Height}"/>
+                           Path=Height}"
+                           MaxHeight="{Binding MaxListBoxHeigth}"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+
 
         <ListBox ItemsSource="{Binding FileDataViewModels}"
                  SelectedItem="{Binding SelectedFileDataViewModel}"
                  ItemContainerStyle="{StaticResource ListStyle}"
-                 x:Name="FilesListBox"
-                 BorderThickness="0" BorderBrush="White">
+                 x:Name="FilesListBox" 
+                 BorderThickness="0" BorderBrush="White"
+                 MaxHeight="{Binding ElementName=MainGrid, 
+            Path=ActualHeight}">
+            
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SizeChanged">
+                    <i:InvokeCommandAction 
+                        Command=
+                        "{Binding Path=DataContext.ChangeListBoxHeight, 
+                                  RelativeSource={RelativeSource 
+                                  Mode=FindAncestor, 
+                                  AncestorType={x:Type Grid}}}"
+                         CommandParameter="{Binding ActualHeight, 
+                                ElementName=MainGrid}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="5">
@@ -107,8 +127,7 @@
                                         <Setter Property="Background" 
                                                 Value="#FEE"/>
                                         <Setter Property="Control.ToolTip" 
-                                                Value="{Binding
-                                                RelativeSource={RelativeSource Self},
+                                                Value="{Binding RelativeSource={RelativeSource Self},
                                                 Path=(Validation.Errors)[0].ErrorContent}"/>
                                     </Trigger>
                                 </Style.Triggers>
@@ -120,7 +139,8 @@
                                    NotifyOnValidationError=True}"
                                    Validation.ErrorTemplate="{x:Null}"/>
 
-                        <Label x:Name="XLable" Grid.Column="1" FontSize="14" Height="20"
+                        <Label x:Name="XLable" Grid.Column="1"
+                                   FontSize="14" Height="20"
                                    Padding="10,0,0,0" Content="❌"
                                    DataContext="{Binding Path=FileName,
                                    NotifyOnValidationError=True}"
@@ -147,7 +167,7 @@
         </ListBox>
         <Button Grid.Row="1" Content="" VerticalAlignment="Top" 
                 HorizontalAlignment="Left" Height="40" Width="40"
-                Command="{Binding AddFilesCommand}" Margin="0,0,361,0"
+                Command="{Binding AddFilesCommand}" Margin="6,2,0,2"
                 BorderThickness="0" BorderBrush="White" 
                 Template="{StaticResource NoMouseOverButtonTemplate}">
             <Button.Background>
