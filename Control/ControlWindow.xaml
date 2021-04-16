@@ -102,7 +102,7 @@
                 <i:EventTrigger EventName="SizeChanged">
                     <i:InvokeCommandAction 
                         Command=
-                        "{Binding Path=DataContext.ChangeListBoxHeight, 
+                        "{Binding Path=DataContext.ChangeMaxListBoxHeight, 
                                   RelativeSource={RelativeSource 
                                   Mode=FindAncestor, 
                                   AncestorType={x:Type Grid}}}"

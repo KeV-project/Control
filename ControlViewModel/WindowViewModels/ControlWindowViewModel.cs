@@ -15,10 +15,19 @@ namespace ControlViewModel.WindowViewModels
     /// </summary>
     public class ControlWindowViewModel: NotifyDataErrorViewModelBase
     {
+        /// <summary>
+        /// Хранит минимальную высоту кнопки
+        /// </summary>
         private const double MIN_BUTTON_HEIGHT = 50;
 
+        /// <summary>
+        /// Хранит максимальную высоту элемента ListBox
+        /// </summary>
         private double _maxListBoxHeight = 0;
 
+        /// <summary>
+        /// Возвращает и устанавливает максимальную высоту ListBox
+        /// </summary>
         public double MaxListBoxHeigth
         {
             get
@@ -27,8 +36,7 @@ namespace ControlViewModel.WindowViewModels
             }
             set
             {
-                _maxListBoxHeight = value;
-                RaisePropertyChanged(nameof(MaxListBoxHeigth));
+                Set(ref _maxListBoxHeight, value);
             }
         }
 
@@ -79,14 +87,20 @@ namespace ControlViewModel.WindowViewModels
             _fileDialogService = fileDialogService;
 		}
 
-		private RelayCommand<double> _changeListBoxHeight;
+        /// <summary>
+        /// Хранит команду изменения максимальной высоты ListBox
+        /// </summary>
+		private RelayCommand<double> _changeMaxListBoxHeight;
 
-		public RelayCommand<double> ChangeListBoxHeight
+        /// <summary>
+        /// Возвращает команду изменения максимальной высоты ListBox
+        /// </summary>
+		public RelayCommand<double> ChangeMaxListBoxHeight
 		{
 			get
 			{
-				return _changeListBoxHeight ??
-				 (_changeListBoxHeight = new RelayCommand<double>(
+				return _changeMaxListBoxHeight ??
+				 (_changeMaxListBoxHeight = new RelayCommand<double>(
 					 gridHeight =>
 				 {
                      MaxListBoxHeigth = gridHeight - MIN_BUTTON_HEIGHT;
