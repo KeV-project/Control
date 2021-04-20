@@ -47,7 +47,8 @@ namespace ControlModel
 		{ 
 			if (!IsCorrectFileExtension(filePath))
 			{
-				//TODO: Тут бы формировал строку из списка расширений вместо того, чтобы дёргать по индексам +
+				//TODO: Тут бы формировал строку из списка расширений вместо того, чтобы дёргать по индексам
+				//TODO: Вверху же уже есть список, зачем задавать его заново тут?)
 				const string correctExtensions = "\".exe\", \".dll\"";
 				throw new ArgumentException("Файл с именем \"" 
 					+ filePath.Name + "\" имеет недопустимое расширение. " 
