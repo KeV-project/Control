@@ -10,7 +10,6 @@ namespace ControlModel
 	/// </summary>
 	public static class ValueValidator
 	{
-		//TODO: лучше переделать в список расширений +
 		/// <summary>
 		/// Хранит список допустимых расширений
 		/// </summary>
@@ -48,6 +47,7 @@ namespace ControlModel
 		{ 
 			if (!IsCorrectFileExtension(filePath))
 			{
+				//TODO: Тут бы формировал строку из списка расширений вместо того, чтобы дёргать по индексам
 				throw new ArgumentException("Файл с именем \"" 
 					+ filePath.Name + "\" имеет недопустимое расширение. " 
 					+ "Допустимые расширения: \"" + _extensions[0] + "\", "

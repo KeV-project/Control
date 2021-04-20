@@ -27,19 +27,18 @@ namespace ControlView.Services
         /// <returns></returns>
         public bool AddFileDialog()
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Multiselect = true;
-            if (openFileDialog.ShowDialog() == true)
+            var openFileDialog = new OpenFileDialog
             {
-                _filePaths = new List<FileInfo>();
-                // TODO: foreach +
-                foreach (string fileName in openFileDialog.FileNames)
-                {
-                    _filePaths.Add(new FileInfo(fileName));
-                }
-                return true;
+                Multiselect = true
+            };
+            if (openFileDialog.ShowDialog() != true) return false;
+
+            _filePaths = new List<FileInfo>();
+            foreach (var fileName in openFileDialog.FileNames)
+            {
+                _filePaths.Add(new FileInfo(fileName));
             }
-            return false;
+            return true;
         }
     }
 }

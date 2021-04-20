@@ -70,7 +70,6 @@ namespace ControlViewModel.WindowViewModels
             }
             set
             {
-                // TODO: Set(ref _selectedFileDataViewModel, value) +
                 Set(ref _selectedFileDataViewModel, value);
             }
         }
